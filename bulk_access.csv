@@ -1,0 +1,4 @@
+username,permission,action
+octocat,push,add
+testuser,admin,add
+olduser,,remove

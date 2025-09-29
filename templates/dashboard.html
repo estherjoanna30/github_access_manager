@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GitHub Access Management Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</head>
+
+<body class="bg-light">
+<div class="container py-4">
+    <h1 class="text-center text-primary mb-4">✅ GitHub Access Management Dashboard</h1>
+
+    <!-- Alert placeholder -->
+    <div id="alertBox" class="mt-3"></div>
+
+    <!-- Email Mapping Management -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">📧 Manage Email → Username Mapping</h5>
+            <input type="text" id="mapEmail" class="form-control mb-2" placeholder="Enter Email">
+            <input type="text" id="mapUsername" class="form-control mb-2" placeholder="Enter GitHub Username">
+            <button class="btn btn-primary" onclick="addMapping()">Add Mapping</button>
+            <button class="btn btn-secondary" onclick="loadMappings()">View All Mappings</button>
+            <div id="mapTableContainer" class="mt-3"></div>
+        </div>
+    </div>
+
+    <!-- Search User by Email -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">🔍 Search User by Email</h5>
+            <input type="text" id="email" class="form-control mb-2" placeholder="Enter email">
+            <button class="btn btn-primary" onclick="searchEmail()">Search</button>
+            <pre id="emailResult" class="bg-light mt-2 p-2"></pre>
+        </div>
+    </div>
+
+    <!-- List User Repositories -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">📂 List User Repositories</h5>
+            <input type="text" id="username" class="form-control mb-2" placeholder="Enter GitHub username">
+            <button class="btn btn-success" onclick="listRepos()">Get Repositories</button>
+            <pre id="reposResult" class="bg-light mt-2 p-2"></pre>
+        </div>
+    </div>
+
+    <!-- Manage Collaborators -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">👥 Manage Collaborators</h5>
+            <input type="text" id="owner" class="form-control mb-2" placeholder="Owner">
+            <input type="text" id="repo" class="form-control mb-2" placeholder="Repository">
+            <input type="text" id="collabUsername" class="form-control mb-2" placeholder="Collaborator Username">
+            <select id="permission" class="form-control mb-2">
+                <option value="pull">Pull</option>
+                <option value="push" selected>Push</option>
+                <option value="admin">Admin</option>
+            </select>
+            <button class="btn btn-primary" onclick="addCollaborator()">Add</button>
+            <button class="btn btn-danger" onclick="removeCollaborator()">Remove</button>
+            <button class="btn btn-dark" onclick="loadCollaborators()">🔄 Refresh List</button>
+            <div id="collabTableContainer" class="mt-3"></div>
+        </div>
+    </div>
+
+    <!-- Bulk Management -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">📦 Bulk Management (CSV Upload)</h5>
+            <input type="text" id="bulkOwner" class="form-control mb-2" placeholder="Owner">
+            <input type="text" id="bulkRepo" class="form-control mb-2" placeholder="Repository">
+            <input type="file" id="bulkFile" class="form-control mb-2">
+            <button class="btn btn-warning" onclick="previewBulk()">Preview Changes</button>
+            <button class="btn btn-success" onclick="applyBulk()">Apply Changes</button>
+            <pre id="bulkResult" class="bg-light mt-2 p-2"></pre>
+        </div>
+    </div>
+
+    <!-- Reports -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">📊 Generate Reports</h5>
+            <input type="text" id="reportOwner" class="form-control mb-2" placeholder="Owner">
+            <input type="text" id="reportRepo" class="form-control mb-2" placeholder="Repository">
+            <button class="btn btn-warning" onclick="generateReport('excel')">Generate Excel</button>
+            <button class="btn btn-info" onclick="generateReport('pdf')">Generate PDF</button>
+            <pre id="reportResult" class="bg-light mt-2 p-2"></pre>
+        </div>
+    </div>
+
+    <!-- View Logs -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">📜 View Logs</h5>
+            <button class="btn btn-dark mb-2" onclick="loadLogs()">Reload Logs</button>
+            <div id="logsTableContainer"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
